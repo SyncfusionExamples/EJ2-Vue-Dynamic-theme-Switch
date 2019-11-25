@@ -51,8 +51,8 @@ export default {
         if (e && e.itemData.value) {
             let ajax = new Ajax('src/assets/styles/' + e.itemData.value + '.css', 'GET', true);
             ajax.send().then((result) => {
-              let style = document.getElementsByTagName('style');
-              style[0].innerHTML = `/*${e.itemData.value}*/` + result;
+              let styleTag = document.getElementById('theme');
+              styleTag.innerHTML=`/*${e.itemData.value}*/` + result;
             });
           }
     }
@@ -60,8 +60,3 @@ export default {
 }
 
 </script>
-<style>
-
-@import '../node_modules/@syncfusion/ej2-vue-dropdowns/styles/material.css';
-
-</style>
