@@ -46,8 +46,6 @@ export default {
 },
  methods: {
     onChange: function(e) {
-        debugger
-        console.log(e);
         if (e && e.itemData.value) {
             let ajax = new Ajax('src/assets/styles/' + e.itemData.value + '.css', 'GET', true);
             ajax.send().then((result) => {
