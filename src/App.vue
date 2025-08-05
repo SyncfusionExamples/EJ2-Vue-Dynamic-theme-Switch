@@ -16,14 +16,17 @@
   </div>
 </template>
 <script>
-import Vue from 'vue';
-import { DropDownListPlugin } from "@syncfusion/ej2-vue-dropdowns";
-import { GridPlugin, Page } from "@syncfusion/ej2-vue-grids";
+import { DropDownListComponent } from "@syncfusion/ej2-vue-dropdowns";
+import { GridComponent, ColumnsDirective, ColumnDirective, Page } from "@syncfusion/ej2-vue-grids";
 import { Ajax } from '@syncfusion/ej2-base';
 
-Vue.use(DropDownListPlugin);
-Vue.use(GridPlugin);
 export default {
+  components: {
+    'ejs-dropdownlist': DropDownListComponent,
+    'ejs-grid': GridComponent,
+    'e-columns': ColumnsDirective,
+    'e-column': ColumnDirective
+  },
   data (){
     return {
       themes: ['material', 'fabric', 'bootstrap'],
@@ -38,25 +41,26 @@ export default {
           { OrderID: 10255, CustomerID: 'RICSU', Freight: 148.33 },
           { OrderID: 10256, CustomerID: 'WELLI', Freight: 13.97 }
       ],
-      pageSettings: { pageSize: 5 },
-      provide: {
-        grid: [Page]
-      }
+      pageSettings: { pageSize: 5 }
     }
-},
- methods: {
+  },
+  provide: {
+    grid: [Page]
+  },
+  methods: {
     onChange: function(e) {
-        debugger
         console.log(e);
         if (e && e.itemData.value) {
             let ajax = new Ajax('src/assets/styles/' + e.itemData.value + '.css', 'GET', true);
             ajax.send().then((result) => {
               let styleTag = document.getElementById('theme');
-              styleTag.innerHTML=`/*${e.itemData.value}*/` + result;
+              if (styleTag) {
+                styleTag.innerHTML=`/*${e.itemData.value}*/` + result;
+              }
             });
-          }
+        }
     }
- }
+  }
 }
 
 </script>
